@@ -1,5 +1,7 @@
 package com.arian.libreria.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.arian.libreria.model.Libreria;
@@ -11,37 +13,56 @@ public class LibreriaService implements ILibreriaService{
 	private LibreriaRepository repo;
 	@Override
 	public Iterable<Libreria> getAllLibro() {
-		// TODO Auto-generated method stub
-		return null;
+		return repo.findAll();
 	}
 
 	@Override
 	public Libreria getLibroById(Integer id) {
-		// TODO Auto-generated method stub
+		Optional<Libreria> libro = repo.findById(id);
+		if(libro.isEmpty() == false) {
+			return libro.get();
+		}
 		return null;
 	}
 
 	@Override
 	public Libreria saveLibro(Libreria libro) {
-		// TODO Auto-generated method stub
-		return null;
+		return repo.save(libro);
 	}
 
 	@Override
 	public Libreria updateLibro(Integer id, Libreria libro) {
-		// TODO Auto-generated method stub
+		Optional<Libreria> lb = repo.findById(id);
+		if(lb.isEmpty() == false) {
+			lb.get().setTitolo(libro.getTitolo());
+			lb.get().setGenere(libro.getGenere());
+			lb.get().setAnnoPubblicazione(libro.getAnnoPubblicazione());
+			lb.get().setImmagini(libro.getImmagini());
+			lb.get().setIsbn(libro.getIsbn());
+			lb.get().setPrezzo(libro.getPrezzo());
+			repo.save(lb.get());
+			return lb.get();
+		}
 		return null;
 	}
 
 	@Override
 	public Libreria updateLibroPrezzo(Integer id, Libreria libro) {
-		// TODO Auto-generated method stub
+		Optional<Libreria> lb = repo.findById(id);
+		if(lb.isEmpty() == false) {
+			lb.get().setPrezzo(libro.getPrezzo());
+			repo.save(lb.get());
+			return lb.get();
+		}
 		return null;
 	}
 
 	@Override
 	public Libreria deleteLibroById(Integer id) {
-		// TODO Auto-generated method stub
+		Optional<Libreria> lb = repo.findById(id);
+		if(lb.isEmpty() == false) {
+			return lb.get();
+		}
 		return null;
 	}
 
