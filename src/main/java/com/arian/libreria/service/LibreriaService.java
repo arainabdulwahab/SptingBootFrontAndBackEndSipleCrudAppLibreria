@@ -3,10 +3,12 @@ package com.arian.libreria.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.arian.libreria.model.Libreria;
 import com.arian.libreria.repository.LibreriaRepository;
 
+@Service
 public class LibreriaService implements ILibreriaService{
 
 	@Autowired
